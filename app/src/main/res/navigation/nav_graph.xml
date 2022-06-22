@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.dentreality.spacekit.sample.FirstFragment"
+        android:name="com.dentreality.spacekit.sample.DataLoaderFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_data_loader">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
