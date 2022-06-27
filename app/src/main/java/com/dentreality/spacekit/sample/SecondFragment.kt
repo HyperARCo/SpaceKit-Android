@@ -1,6 +1,7 @@
 package com.dentreality.spacekit.sample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,10 @@ import com.dentreality.spacekit.sample.databinding.FragmentSecondBinding
  */
 class SecondFragment : Fragment() {
 
+    companion object {
+        private const val TAG = "SecondFragment"
+    }
+
     private var binding: FragmentSecondBinding? = null
 
     override fun onCreateView(
@@ -22,7 +27,7 @@ class SecondFragment : Fragment() {
     ): View {
         binding = FragmentSecondBinding.inflate(inflater, container, false).apply {
             buttonSecond.setOnClickListener {
-                findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+                Log.w(TAG, "No destination to go to")
             }
         }
         return binding!!.root

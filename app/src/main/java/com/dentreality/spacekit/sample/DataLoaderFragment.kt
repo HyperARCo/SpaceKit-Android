@@ -14,20 +14,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.dentreality.spacekit.android.ext.SpaceKitKtx
+import com.dentreality.spacekit.SpaceKitAssetData
+import com.dentreality.spacekit.android.ext.SpaceKit
 import com.dentreality.spacekit.android.requestWifiEnable
 import com.dentreality.spacekit.ext.Requisite
+import com.dentreality.spacekit.ext.SpaceKitStatusListener
 import com.dentreality.spacekit.sample.databinding.FragmentDataLoaderBinding
 
 /**
  * A fragment that handles all data loading and permissions required for showing the SpaceKit UI
  */
-class DataLoaderFragment : Fragment() {
+class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
 
     companion object {
         private const val TAG = "DataLoaderFragment"
     }
 
+    private val spaceKit: SpaceKit by lazy { SpaceKit(requireContext()) }
     private var binding: FragmentDataLoaderBinding? = null
 
     override fun onCreateView(
@@ -36,63 +39,41 @@ class DataLoaderFragment : Fragment() {
     ): View {
         binding = FragmentDataLoaderBinding.inflate(inflater, container, false)
         return binding!!.root
-
     }
 
     override fun onStart() {
         super.onStart()
-        loadVenueData()
-        continueWithRequisites()
+        spaceKit.setStatusListener(this)
+        spaceKit.initialise(SpaceKitAssetData(requireContext(), "sampleData.zip"))
     }
 
-    private fun loadVenueData() {
-        Log.w(TAG, "loadVenueData not yet implemented")
+    override fun onStop() {
+        super.onStop()
+        spaceKit.setStatusListener(null)
     }
 
-    private fun continueToSpaceKitView() {
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    override fun onSpaceKitReady() {
+        findNavController().navigate(R.id.actionContinueToSpaceKitViewer)
     }
 
-    @Suppress("DEPRECATION")
-    private fun continueWithRequisites() {
-        val requisites = SpaceKitKtx.getUnfulfilledPrerequisites(requireActivity())
-        if (requisites.isEmpty()) {
-            continueToSpaceKitView()
-        } else {
-            Log.i(TAG, "Found unfulfilled requisites:$requisites")
-            requisites.forEach {
-                when (it) {
-                    Requisite.CAMERA_PERMISSION -> requestCameraPermissions()
-                    Requisite.FINE_LOCATION_PERMISSION -> requestLocationPermissions()
-                    Requisite.LOCATION_ENABLED -> requestLocationServices()
-                    Requisite.WIFI_ENABLED -> requestWifi()
-                    else -> Log.w(TAG, "(NOT) asking for $it")
-                }
-            }
+    override fun onRequisitesNeeded(requisites: List<Requisite>) {
+        Log.i(TAG, "Found unfulfilled requisites:$requisites")
+        when (val nextRequisite = requisites.first()) {
+            Requisite.CAMERA_PERMISSION -> requestCameraPermissions()
+            Requisite.FINE_LOCATION_PERMISSION -> requestLocationPermissions()
+            Requisite.LOCATION_ENABLED -> requestLocationServices()
+            Requisite.WIFI_ENABLED -> requestWifi()
+            else -> Log.w(TAG, "(NOT) asking for $nextRequisite")
         }
-    }
-
-    private fun requestLocationServices() {
-        show(AlertDialog.Builder(requireContext())
-            .setTitle(R.string.location_service_title)
-            .setMessage(R.string.location_service_body)
-            .setPositiveButton(R.string.location_service_yes) { _, _ ->
-                requireContext().startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-            }
-            .setNegativeButton(R.string.location_service_no) { _, _ ->
-                confirmDeniedRequisites()
-            }
-            .create()
-        )
     }
 
     private val requestCameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            continueWithRequisites()
+            spaceKit.checkRequisites()
         } else {
-            requestLocationPermissions()
+            requestCameraPermissions()//ask again
         }
     }
 
@@ -102,10 +83,10 @@ class DataLoaderFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-                continueWithRequisites()
+                spaceKit.checkRequisites()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                show(AlertDialog.Builder(requireContext())
+                AlertDialog.Builder(requireContext())
                     .setTitle(R.string.camera_permission_rationale_title)
                     .setMessage(R.string.camera_permission_rationale_body)
                     .setCancelable(false)
@@ -116,12 +97,10 @@ class DataLoaderFragment : Fragment() {
                     .setNegativeButton(R.string.camera_permission_rationale_no) { _, _ ->
                         confirmDeniedRequisites()
                     }
-                    .create()
-                )
+                    .create().show()
             }
             else -> {
-                // You can directly ask for the permission.
-                // The registered ActivityResultCallback gets the result of this request.
+                // Directly ask for the permission.
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
@@ -131,9 +110,9 @@ class DataLoaderFragment : Fragment() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            continueWithRequisites()
+            spaceKit.checkRequisites()
         } else {
-            requestCameraPermissions()
+            requestLocationPermissions()//ask again
         }
     }
 
@@ -143,10 +122,10 @@ class DataLoaderFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                continueWithRequisites()
+                spaceKit.checkRequisites()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                show(AlertDialog.Builder(requireContext())
+                AlertDialog.Builder(requireContext())
                     .setTitle(R.string.location_permission_rationale_title)
                     .setMessage(R.string.location_permission_rationale_body)
                     .setCancelable(false)
@@ -157,19 +136,31 @@ class DataLoaderFragment : Fragment() {
                     .setNegativeButton(R.string.location_permission_rationale_no) { _, _ ->
                         confirmDeniedRequisites()
                     }
-                    .create()
-                )
+                    .create().show()
             }
             else -> {
-                // You can directly ask for the permission.
-                // The registered ActivityResultCallback gets the result of this request.
+                // Directly ask for the permission.
                 requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
     }
 
+    private fun requestLocationServices() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.location_service_title)
+            .setMessage(R.string.location_service_body)
+            .setCancelable(false)
+            .setPositiveButton(R.string.location_service_yes) { _, _ ->
+                requireContext().startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+            .setNegativeButton(R.string.location_service_no) { _, _ ->
+                confirmDeniedRequisites()
+            }
+            .create().show()
+    }
+
     private fun requestWifi() {
-        show(AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle(R.string.wifi_enable_title)
             .setMessage(R.string.wifi_enable_body)
             .setCancelable(false)
@@ -181,31 +172,23 @@ class DataLoaderFragment : Fragment() {
                 //quit the app
                 confirmDeniedRequisites()
             }
-            .create()
-        )
+            .create().show()
     }
 
     private fun confirmDeniedRequisites() {
-        show(AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle(R.string.requisites_denied_title)
             .setMessage(R.string.requisites_denied_body)
             .setCancelable(false)
             .setPositiveButton(R.string.requisites_denied_try) { _, _ ->
                 //ask again
-                continueWithRequisites()
+                spaceKit.checkRequisites()
             }
             .setNegativeButton(R.string.requisites_denied_quit) { _, _ ->
                 //quit the app
                 requireActivity().finish()
             }
-            .create()
-        )
-    }
-
-    private var _dialog: AlertDialog? = null
-    private fun show(dialog: AlertDialog) {
-        _dialog?.dismiss()
-        _dialog = dialog.apply { show() }
+            .create().show()
     }
 
     override fun onDestroyView() {
