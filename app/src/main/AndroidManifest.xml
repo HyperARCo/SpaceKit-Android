@@ -28,6 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Todo: this should be replaced with your own Google Maps Key-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDrS1vY0b614edbAhXwkOxXnSJCsrlGWAE"
+            />
+
     </application>
 
 </manifest>
