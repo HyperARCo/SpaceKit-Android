@@ -16,8 +16,8 @@
     </fragment>
     <fragment
         android:id="@+id/SpaceKitViewFragment"
-        android:name="com.dentreality.spacekit.sample.SecondFragment"
-        tools:layout="@layout/fragment_second">
+        android:name="com.dentreality.spacekit.sample.SpaceKitViewFragment"
+        tools:layout="@layout/fragment_space_kit_view">
 
     </fragment>
 

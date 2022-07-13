@@ -14,8 +14,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.dentreality.spacekit.SpaceKitAssetData
 import com.dentreality.spacekit.android.ext.SpaceKit
+import com.dentreality.spacekit.android.ext.SpaceKitAssetData
 import com.dentreality.spacekit.android.requestWifiEnable
 import com.dentreality.spacekit.ext.Requisite
 import com.dentreality.spacekit.ext.SpaceKitStatusListener
