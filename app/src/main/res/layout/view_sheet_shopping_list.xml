@@ -2,30 +2,40 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shoppingListSheet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="32dp"
+    app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shopping List"
-        android:textSize="16sp"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/list_bg"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="Shopping List"
+            android:textAllCaps="true"
+            android:textColor="@color/list_text"
+            android:textStyle="bold"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="#66660066"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="88dp"
-        android:text="PLACEHOLDER"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shoppingListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_list_product"
+            />
+    </LinearLayout>
 </LinearLayout>

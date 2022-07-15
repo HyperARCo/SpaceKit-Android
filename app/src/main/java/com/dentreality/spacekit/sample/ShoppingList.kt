@@ -8,42 +8,56 @@ class SettableLiveData<T>(private val setAction: (T) -> T) : MutableLiveData<T>(
     }
 }
 
+data class ListPool(
+    val list: List<Product> = emptyList(),
+    val pool: List<Product> = emptyList()
+)
+
 class ShoppingList(productDatabase: ProductDatabase) {
 
-    val shoppingList: MutableLiveData<List<Product>> = MutableLiveData(emptyList())
-    val productPoolList: SettableLiveData<List<Product>> = SettableLiveData { unorderedList ->
-        unorderedList.sortedBy { it.itemName }
+    val poolListLiveData: SettableLiveData<ListPool> = SettableLiveData { unordered ->
+        ListPool(
+            unordered.list.sortedBy { it.itemName },
+            unordered.pool.sortedBy { it.itemName }
+        )
     }
+    private val shoppingList = mutableListOf<Product>()
+    private val productPool = mutableListOf<Product>()
 
     init {
-        productPoolList.value = productDatabase.productList
+        productPool.addAll(productDatabase.productList.sortedBy { it.itemName })
+        updateLiveData()
+    }
+
+    fun setOrderedShoppingList(list: List<Product>) {
+        shoppingList.clear()
+        shoppingList.addAll(list)
+        updateLiveData()
     }
 
     fun addToShoppingList(product: Product) {
-        moveProduct(product, productPoolList, shoppingList)
+        moveProduct(product, productPool, shoppingList)
     }
 
     fun removeFromShoppingList(product: Product) {
-        moveProduct(product, shoppingList, productPoolList)
+        moveProduct(product, shoppingList, productPool)
     }
 
     private fun moveProduct(
         product: Product,
-        fromList: MutableLiveData<List<Product>>,
-        toList: MutableLiveData<List<Product>>
+        fromList: MutableList<Product>,
+        toList: MutableList<Product>
     ) {
-        val newFromList = mutableListOf<Product>()
-        newFromList.addAll(fromList.value!!)
-        newFromList.remove(product)
+        fromList.remove(product)
+        toList.add(product)
+        updateLiveData()
+    }
 
-        val newToList = mutableListOf(product)
-        newToList.addAll(toList.value ?: emptyList())
-
-        toList.value = newToList
-        fromList.value = newFromList
+    private fun updateLiveData() {
+        poolListLiveData.value = ListPool(shoppingList, productPool)
     }
 
     override fun toString(): String {
-        return "ShoppingList(shoppingList=${shoppingList.value}, productPool=${productPoolList.value})"
+        return "ShoppingList(shoppingList=${shoppingList}, productPool=${productPool})"
     }
 }

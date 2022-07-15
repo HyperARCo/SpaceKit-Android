@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dentreality.spacekit.SpaceKitUIFragment
 import com.dentreality.spacekit.ext.Destination
 import com.dentreality.spacekit.ext.ListListener
@@ -25,6 +26,7 @@ class SpaceKitViewFragment : Fragment() {
     private val viewModel: SpaceKitViewModel by viewModels()
     private var binding: FragmentSpaceKitViewBinding? = null
     private lateinit var spaceKitUiFragment: SpaceKitUIFragment
+    private lateinit var listAdapter: ShoppingListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +70,19 @@ class SpaceKitViewFragment : Fragment() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
 
+            listAdapter = ShoppingListAdapter()
+            listAdapter.onListClick = { viewModel.onListItemClicked(it) }
+            listAdapter.onPoolClick = { viewModel.onPoolItemClicked(it) }
+            listInclude.shoppingListRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = listAdapter
+            }
+
+            viewModel.listPool.observe(requireActivity()) { listPool ->
+                listAdapter.updateList(listPool)
+                val destinations:Array<Destination> = listPool.list.toTypedArray()
+                spaceKitUiFragment.setDestinations(*destinations)
+            }
         }
         return binding!!.root
     }
