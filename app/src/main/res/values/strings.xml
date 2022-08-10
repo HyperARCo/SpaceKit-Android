@@ -24,7 +24,7 @@
     <string name="location_service_yes">OK</string>
     <string name="location_service_no">Quit</string>
 
-    <string name="requisites_denied_title">Uanble to Launch</string>
+    <string name="requisites_denied_title">Unable to Launch</string>
     <string name="requisites_denied_body">One or more requirements has been denied. Try again or close.</string>
     <string name="requisites_denied_try">Try Again</string>
     <string name="requisites_denied_quit">Quit</string>
