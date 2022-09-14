@@ -30,7 +30,6 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
         private const val TAG = "DataLoaderFragment"
     }
 
-    private val spaceKit: SpaceKit by lazy { SpaceKit(requireContext()) }
     private var binding: FragmentDataLoaderBinding? = null
 
     override fun onCreateView(
@@ -43,13 +42,13 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
 
     override fun onStart() {
         super.onStart()
-        spaceKit.setStatusListener(this)
-        spaceKit.initialise(SpaceKitAssetData(requireContext(), "sampleData.zip"))
+        SpaceKit.setStatusListener(this)
+        SpaceKit.initialise(SpaceKitAssetData(requireContext(), "sampleData.zip"))
     }
 
     override fun onStop() {
         super.onStop()
-        spaceKit.setStatusListener(null)
+        SpaceKit.setStatusListener(null)
     }
 
     override fun onSpaceKitReady() {
@@ -71,7 +70,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            spaceKit.checkRequisites()
+            SpaceKit.checkRequisites()
         } else {
             requestCameraPermissions()//ask again
         }
@@ -83,7 +82,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
                 requireContext(),
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-                spaceKit.checkRequisites()
+                SpaceKit.checkRequisites()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                 AlertDialog.Builder(requireContext())
@@ -110,7 +109,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            spaceKit.checkRequisites()
+            SpaceKit.checkRequisites()
         } else {
             requestLocationPermissions()//ask again
         }
@@ -122,7 +121,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                spaceKit.checkRequisites()
+                SpaceKit.checkRequisites()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 AlertDialog.Builder(requireContext())
@@ -182,7 +181,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
             .setCancelable(false)
             .setPositiveButton(R.string.requisites_denied_try) { _, _ ->
                 //ask again
-                spaceKit.checkRequisites()
+                SpaceKit.checkRequisites()
             }
             .setNegativeButton(R.string.requisites_denied_quit) { _, _ ->
                 //quit the app
