@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dentreality.spacekit.android.ext.SpaceKit
 import com.dentreality.spacekit.android.ext.SpaceKitAssetData
-import com.dentreality.spacekit.android.requestWifiEnable
+import com.dentreality.spacekit.android.ext.requestWifiEnable
 import com.dentreality.spacekit.ext.Requisite
 import com.dentreality.spacekit.ext.SpaceKitStatusListener
 import com.dentreality.spacekit.sample.databinding.FragmentDataLoaderBinding

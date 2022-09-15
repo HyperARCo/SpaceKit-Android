@@ -1,7 +1,7 @@
 package com.dentreality.spacekit.sample
 
 import android.content.Context
-import com.dentreality.spacekit.common.AssetIcon
+import com.dentreality.spacekit.android.ext.AssetIcon
 import com.dentreality.spacekit.ext.Destination
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
