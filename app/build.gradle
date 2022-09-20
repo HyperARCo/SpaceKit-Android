@@ -37,7 +37,7 @@ android {
 
 dependencies {
     //import the SpaceKit SDK
-    implementation 'com.dentreality:spacekit:0.4'
+    implementation 'com.dentreality:spacekit:0.4.0'
 
     //start spacekit required?
     implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.3.1"

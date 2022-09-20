@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         mavenLocal()
     }
 }
-rootProject.name = "SpaceKit-Android"
+rootProject.name = "SpaceKit-Sample"
 include ':app'
