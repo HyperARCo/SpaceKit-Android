@@ -33,7 +33,7 @@
         <!-- Todo: this should be replaced with your own Google Maps Key-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDrS1vY0b614edbAhXwkOxXnSJCsrlGWAE"
+            android:value="AIzaSyADhXMiySKLF16UNqH9hWXVXLE9V0IEkRo"
             />
 
         <!-- AR core is currently required but will eventually be made optional -->
