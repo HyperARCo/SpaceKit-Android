@@ -6,8 +6,15 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
 
     <application
+        android:name=".SampleApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,8 +27,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.SpaceKitAndroid.NoActionBar" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +38,12 @@
         <!-- Todo: this should be replaced with your own Google Maps Key-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDrS1vY0b614edbAhXwkOxXnSJCsrlGWAE"
-            />
+            android:value="AIzaSyADhXMiySKLF16UNqH9hWXVXLE9V0IEkRo" />
+
+        <!-- AR core is currently required but will eventually be made optional -->
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
 
     </application>
-
 </manifest>

@@ -41,7 +41,6 @@ class ShoppingListAdapter : ListAdapter<Product, RecyclerView.ViewHolder>(diffCa
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.i(TAG, "onBindViewHolder(holder:$holder, position:$position)")
         val entry: BaseEntry = entries[position]
         when (val viewType = getItemViewType(position)) {
             LIST_PRODUCT_TYPE -> (holder as ListItemViewHolder).bind(entry as ListEntry)

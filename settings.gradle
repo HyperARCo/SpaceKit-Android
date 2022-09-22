@@ -11,7 +11,14 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
+        maven {
+            url = uri("https://maven.pkg.github.com/dentreality/spacekit-android")
+            credentials {
+                username = "$dentMavenUser"
+                password = "$dentMavenKey"
+            }
+        }
     }
 }
-rootProject.name = "SpaceKit-Android"
+rootProject.name = "SpaceKit-Sample"
 include ':app'

@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.dentreality.spacekit.sample"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "0.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,33 +24,48 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding true
+    }
+    signingConfigs {
+        debug {
+            storeFile file("debugKey.keystore")
+            storePassword "sample"
+            keyAlias "debug"
+            keyPassword "sample"
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
     }
 }
 
 dependencies {
     //import the SpaceKit SDK
-    implementation 'com.dentreality:spacekit:0.3'
+    implementation 'com.dentreality.spacekit:android:0.5.0'
 
-    implementation 'androidx.activity:activity-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.activity:activity-ktx:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.fragment:fragment-ktx:1.5.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.fragment:fragment-ktx:1.5.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.google.android.material:material:1.6.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0'
 
     testImplementation 'junit:junit:4.13.2'
 
