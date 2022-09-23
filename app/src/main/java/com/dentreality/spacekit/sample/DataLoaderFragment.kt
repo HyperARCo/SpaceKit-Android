@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -64,6 +65,12 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
             Requisite.WIFI_ENABLED -> requestWifi()
             else -> Log.w(TAG, "(NOT) asking for $nextRequisite")
         }
+    }
+
+    override fun onError(exception: Exception) {
+        val error = "An error occurred during SpaceKit initialisation"
+        Log.w(TAG, error, exception)
+        activity?.let { Toast.makeText(it, error, Toast.LENGTH_LONG).show() }
     }
 
     private val requestCameraPermissionLauncher = registerForActivityResult(
