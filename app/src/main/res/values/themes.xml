@@ -14,7 +14,5 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.SpaceKitAndroid.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.SpaceKitAndroid.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
