@@ -12,7 +12,9 @@
 
         <action
             android:id="@+id/actionContinueToSpaceKitViewer"
-            app:destination="@id/SpaceKitViewFragment" />
+            app:destination="@id/SpaceKitViewFragment"
+            app:popUpTo="@id/DataLoaderFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/SpaceKitViewFragment"
