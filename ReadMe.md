@@ -10,6 +10,18 @@ The iOS repository can be found [here](https://github.com/DentReality/SpaceKit-i
 * Minimum supported Android version: 24/7.0/Nougat
 * Device must include a backwards-facing camera
 * Must be an [ARCore Supported Device](https://developers.google.com/ar/devices) 
+* **Note: As we continue to develop and optimise the SDK for lower-end devices, we recommend using devices with greater computational power such as one of the following:**
+
+	1. Google Pixel 6 (Pro)
+	1. Google Pixel 6a
+	1. Motorola Edge Plus
+	1. OnePlus 10 Pro
+	1. Oppo Find X5 Pro
+	1. Samsung Galaxy S21
+	1. Samsung Galaxy S22(+)(Ultra)
+	1. Samsung Galaxy Z Flip 4
+	1. Viro 780 Pro
+	1. Xaomi 12 Series
 
 ## Installation
 
