@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">SpaceKit-Android</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="loading">Loading SpaceKit SDK</string>
+
+    <string name="wifi_enable_title">WiFi Required</string>
+    <string name="wifi_enable_body">WiFi is required for accurate positioning. Please enable WiFi.</string>
+    <string name="wifi_enable_yes">Enable</string>
+    <string name="wifi_enable_no">Quit</string>
+
+    <string name="location_permission_rationale_title">Location Permission</string>
+    <string name="location_permission_rationale_body">We require precise location permissions to enable live location.</string>
+    <string name="location_permission_rationale_yes">OK</string>
+    <string name="location_permission_rationale_no">Quit</string>
+
+    <string name="camera_permission_rationale_title">Camera Permission</string>
+    <string name="camera_permission_rationale_body">We require camera permissions to enable Augmented Reality view and to improve live location.</string>
+    <string name="camera_permission_rationale_yes">OK</string>
+    <string name="camera_permission_rationale_no">Quit</string>
+
+    <string name="location_service_title">Location Services</string>
+    <string name="location_service_body">We require location services to enable live location.</string>
+    <string name="location_service_yes">OK</string>
+    <string name="location_service_no">Quit</string>
+
+    <string name="requisites_denied_title">Unable to Launch</string>
+    <string name="requisites_denied_body">One or more requirements has been denied. Try again or close.</string>
+    <string name="requisites_denied_try">Try Again</string>
+    <string name="requisites_denied_quit">Quit</string>
+</resources>
