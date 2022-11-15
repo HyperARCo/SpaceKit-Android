@@ -6,6 +6,10 @@ import com.dentreality.spacekit.android.ext.SpaceKit
 class SampleApp:Application() {
     override fun onCreate() {
         super.onCreate()
-        SpaceKit.init(this)
+        SpaceKit.init(this){
+
+            //enable press-to-locate
+            isLocationOverrideEnabled = true
+        }
     }
 }

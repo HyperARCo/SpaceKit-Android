@@ -47,9 +47,6 @@ class SpaceKitViewFragment : Fragment() {
                 }
             })
 
-            //enable press-to-locate
-            spaceKitUiFragment.isLocationOverrideEnabled = true
-
             shoppingBasketFab.setOnClickListener {
                 toggleShoppingList()
             }
