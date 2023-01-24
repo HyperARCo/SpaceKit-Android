@@ -47,7 +47,7 @@ class SpaceKitViewFragment : Fragment() {
                 }
             })
 
-            shoppingBasketFab.setOnClickListener {
+            spaceKitUiFragment.addProductListClickListener {
                 toggleShoppingList()
             }
 
@@ -77,7 +77,7 @@ class SpaceKitViewFragment : Fragment() {
 
             viewModel.listPool.observe(requireActivity()) { listPool ->
                 listAdapter.updateList(listPool)
-                val destinations:Array<Destination> = listPool.list.toTypedArray()
+                val destinations: Array<Destination> = listPool.list.toTypedArray()
                 spaceKitUiFragment.setDestinations(*destinations)
             }
         }

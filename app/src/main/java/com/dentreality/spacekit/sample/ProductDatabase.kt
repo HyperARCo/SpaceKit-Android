@@ -39,7 +39,7 @@ class ProductDatabase(private val context: Context) {
 
 @Serializable
 data class Product(
-    @SerialName("upc") override val identifier: String,
+    @SerialName("item_code") override val identifier: String,
     @SerialName("name") override val itemName: String,
     @SerialName("icon") val iconIdentifier: String
 ) : Destination {
