@@ -1,1 +1,1 @@
-sourceset_dependencies='{":shared:dokkaHtml/androidMain":[":shared:dokkaHtml/commonMain",":shared:dokkaHtml/hyperInterfaces"],":shared:dokkaHtml/commonMain":[":shared:dokkaHtml/hyperInterfaces"],":shared:dokkaHtml/hyperInterfaces":[]}'
+sourceset_dependencies='{":shared:dokkaHtml/androidMain":[":shared:dokkaHtml/commonMain"],":shared:dokkaHtml/commonMain":[]}'
