@@ -53,7 +53,7 @@ android {
 
 dependencies {
     //import the SpaceKit SDK
-    implementation 'com.dentreality.spacekit:android:0.7.2'
+    implementation 'com.dentreality.spacekit:android:0.7.5'
 
     implementation 'androidx.activity:activity-ktx:1.6.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
