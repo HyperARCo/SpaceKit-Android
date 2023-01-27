@@ -15,8 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.dentreality.spacekit.android.ext.LocalSpaceKitAssetData
 import com.dentreality.spacekit.android.ext.SpaceKit
-import com.dentreality.spacekit.android.ext.SpaceKitAssetData
 import com.dentreality.spacekit.android.ext.requestWifiEnable
 import com.dentreality.spacekit.ext.Requisite
 import com.dentreality.spacekit.ext.SpaceKitStatusListener
@@ -44,7 +44,13 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
     override fun onStart() {
         super.onStart()
         SpaceKit.setStatusListener(this)
-        SpaceKit.initialise(SpaceKitAssetData(requireContext(), "sampleData.zip"))
+        SpaceKit.initialise(
+            LocalSpaceKitAssetData(
+                requireContext(),
+                "sampleTiles",
+                "sampleData.zip"
+            )
+        )
     }
 
     override fun onStop() {
