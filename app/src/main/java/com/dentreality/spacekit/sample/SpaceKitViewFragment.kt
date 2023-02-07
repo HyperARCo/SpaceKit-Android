@@ -1,10 +1,11 @@
 package com.dentreality.spacekit.sample
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,9 @@ import com.dentreality.spacekit.SpaceKitUIFragment
 import com.dentreality.spacekit.ext.Destination
 import com.dentreality.spacekit.ext.ListListener
 import com.dentreality.spacekit.sample.databinding.FragmentSpaceKitViewBinding
+import com.dentreality.spacekit.sample.databinding.ViewFooterShoppingListInfoBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+
 
 /**
  * This fragment shows the SpaceKit UI along with a shopping list as bottom sheet
@@ -32,8 +35,20 @@ class SpaceKitViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSpaceKitViewBinding.inflate(inflater, container, false).apply {
+        binding = FragmentSpaceKitViewBinding.inflate(inflater, container, false)
+        return binding!!.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        configureUI()
+
+        viewModel.loadData()
+    }
+
+    private fun configureUI() {
+        binding?.apply {
             spaceKitUiFragment = childFragmentManager
                 .findFragmentById(R.id.spaceKitFragment) as SpaceKitUIFragment
 
@@ -47,25 +62,60 @@ class SpaceKitViewFragment : Fragment() {
                 }
             })
 
-            spaceKitUiFragment.addProductListClickListener {
-                toggleShoppingList()
-            }
+            //create shopping list info footer
+            val footerBinding =
+                ViewFooterShoppingListInfoBinding.inflate(LayoutInflater.from(requireContext()))
+                    .apply {
+                        listOfProductsTV.text =
+                            resources.getQuantityString(R.plurals.list_of_products, 0, 0)
+                        listOfProductsSection.setOnClickListener {
+                            toggleShoppingList()
+                        }
 
-            val sheetBehavior = from(listInclude.shoppingListSheet)
-            sheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        STATE_EXPANDED ->
-                            Log.i(TAG, "Shopping list drawer is open")
-                        STATE_COLLAPSED, STATE_HIDDEN ->
-                            Log.i(TAG, "Shopping list drawer is closed")
-                        else -> //other possibilities: STATE_DRAGGING, STATE_SETTLING, STATE_HALF_EXPANDED
-                            Log.v(TAG, "Shopping list drawer state:$newState")
+                        //notify SpaceKitFragment that user found the product
+                        gotItButton.setOnClickListener {
+                            spaceKitUiFragment.markItemAsFound()
+                        }
+                    }
+            //add footer into SpaceKitFragment
+            spaceKitUiFragment.addFooter(footerBinding.root)
+
+            //add listener for destination updates
+            spaceKitUiFragment.updateTargetDestinationListener { target, iconDrawable, description ->
+                footerBinding.apply {
+                    nextItemCard.isInvisible = target == null
+
+                    nextItemName.text = target?.itemName
+                    nextItemName.isSelected = true
+
+                    iconDrawable?.let {
+                        nextItemImage.setImageDrawable(it)
+                    }
+
+                    nextItemDescription.isVisible = if (description != null) {
+                        nextItemDescription.text = description
+                        true
+                    } else {
+                        false
                     }
                 }
+            }
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
+            //add listener for shopping list size updates
+            spaceKitUiFragment.updateShoppingListSizeListener { size ->
+                footerBinding.listOfProductsIcon.setImageResource(
+                    if (size == 0) {
+                        R.drawable.img_add_new
+                    } else {
+                        R.drawable.img_product_list
+                    }
+                )
+                footerBinding.listOfProductsTV.text = if (size == 0) {
+                    resources.getString(R.string.add_new)
+                } else {
+                    resources.getQuantityString(R.plurals.list_of_products, size, size)
+                }
+            }
 
             listAdapter = ShoppingListAdapter()
             listAdapter.onListClick = { viewModel.onListItemClicked(it) }
@@ -81,7 +131,6 @@ class SpaceKitViewFragment : Fragment() {
                 spaceKitUiFragment.setDestinations(*destinations)
             }
         }
-        return binding!!.root
     }
 
     private fun toggleShoppingList() {
@@ -94,11 +143,6 @@ class SpaceKitViewFragment : Fragment() {
             }
             sheetBehavior.setState(newState)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.loadData()
     }
 
     override fun onDestroyView() {
