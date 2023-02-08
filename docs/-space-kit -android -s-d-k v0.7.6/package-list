@@ -1,0 +1,39 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.dentreality.spacekit.android.ext////PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/index.html
+$dokka.location:com.dentreality.spacekit.android.ext//requestWifiEnable/android.app.Activity#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/request-wifi-enable.html
+$dokka.location:com.dentreality.spacekit.android.ext/AndroidIcon///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-android-icon/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/AndroidIcon/toDrawable/#android.content.Context/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-android-icon/to-drawable.html
+$dokka.location:com.dentreality.spacekit.android.ext/AssetIcon///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-asset-icon/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/AssetIcon/AssetIcon/#kotlin.String/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-asset-icon/-asset-icon.html
+$dokka.location:com.dentreality.spacekit.android.ext/AssetIcon/assetPath/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-asset-icon/asset-path.html
+$dokka.location:com.dentreality.spacekit.android.ext/AssetIcon/toDrawable/#android.content.Context/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-asset-icon/to-drawable.html
+$dokka.location:com.dentreality.spacekit.android.ext/IconSource///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-icon-source/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/IconSource/createIcon/#kotlin.Int/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-icon-source/create-icon.html
+$dokka.location:com.dentreality.spacekit.android.ext/IconSource/createIcon/#kotlin.String/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-icon-source/create-icon.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalPath///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-path/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalPath/absolutePath/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-path/absolute-path.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalPath/exists/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-path/exists.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalPath/toFile/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-path/to-file.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalSpaceKitAssetData///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-space-kit-asset-data/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalSpaceKitAssetData/LocalSpaceKitAssetData/#android.content.Context#kotlin.String#kotlin.String/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-space-kit-asset-data/-local-space-kit-asset-data.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalSpaceKitAssetData/context/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-space-kit-asset-data/context.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalSpaceKitAssetData/tilesDirectoryName/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-space-kit-asset-data/tiles-directory-name.html
+$dokka.location:com.dentreality.spacekit.android.ext/LocalSpaceKitAssetData/toHmdfInputStream/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-local-space-kit-asset-data/to-hmdf-input-stream.html
+$dokka.location:com.dentreality.spacekit.android.ext/ResourceIcon///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-resource-icon/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/ResourceIcon/ResourceIcon/#kotlin.Int/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-resource-icon/-resource-icon.html
+$dokka.location:com.dentreality.spacekit.android.ext/ResourceIcon/resId/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-resource-icon/res-id.html
+$dokka.location:com.dentreality.spacekit.android.ext/ResourceIcon/toDrawable/#android.content.Context/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-resource-icon/to-drawable.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit///PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/index.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/arTrackingActive/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/ar-tracking-active.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/checkRequisites/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/check-requisites.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/getHmdfFilePath/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/get-hmdf-file-path.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/getTilesDirectoryName/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/get-tiles-directory-name.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/init/#android.content.Context#kotlin.Function1[com.dentreality.spacekit.ext.SpaceKitOptions,kotlin.Unit]/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/init.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/initialise/#com.dentreality.spacekit.android.ext.LocalSpaceKitAssetData/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/initialise.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/initialise/#kotlin.String#kotlin.String/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/initialise.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/isExtensiveLoggingEnabled/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/is-extensive-logging-enabled.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/isLocationOverrideEnabled/#/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/is-location-override-enabled.html
+$dokka.location:com.dentreality.spacekit.android.ext/SpaceKit/setStatusListener/#com.dentreality.spacekit.ext.SpaceKitStatusListener?/PointingToDeclaration/-space-kit -android -s-d-k v0.7.6/com.dentreality.spacekit.android.ext/-space-kit/set-status-listener.html
+com.dentreality.spacekit.android.ext
+
