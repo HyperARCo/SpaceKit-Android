@@ -3,6 +3,7 @@ package com.dentreality.spacekit.sample
 import android.content.Context
 import com.dentreality.spacekit.android.ext.AssetIcon
 import com.dentreality.spacekit.ext.Destination
+import com.dentreality.spacekit.ext.DestinationPriority
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -41,7 +42,8 @@ class ProductDatabase(private val context: Context) {
 data class Product(
     @SerialName("item_code") override val identifier: String,
     @SerialName("name") override val itemName: String,
-    @SerialName("icon") val iconIdentifier: String
+    @SerialName("icon") val iconIdentifier: String,
+    override val priority: DestinationPriority = DestinationPriority.unspecified,
 ) : Destination {
     override val icon: AssetIcon
         get() = AssetIcon("icons/${iconIdentifier}.png")
