@@ -47,7 +47,6 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
         SpaceKit.initialise(
             LocalSpaceKitAssetData(
                 requireContext(),
-                "sampleTiles",
                 "sampleData.zip"
             )
         )
