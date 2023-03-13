@@ -3,65 +3,47 @@ package com.dentreality.spacekit.sample
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.dentreality.spacekit.android.ext.LocalSpaceKitAssetData
-import com.dentreality.spacekit.android.ext.SpaceKit
 import com.dentreality.spacekit.android.ext.requestWifiEnable
 import com.dentreality.spacekit.ext.Requisite
-import com.dentreality.spacekit.ext.SpaceKitStatusListener
+import com.dentreality.spacekit.ext.Requisites
 import com.dentreality.spacekit.sample.databinding.FragmentDataLoaderBinding
+import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * A fragment that handles all data loading and permissions required for showing the SpaceKit UI
  */
-class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
+@AndroidEntryPoint
+class DataLoaderFragment : Fragment(R.layout.fragment_data_loader) {
+    private val binding by viewBinding(FragmentDataLoaderBinding::bind)
 
     companion object {
         private const val TAG = "DataLoaderFragment"
     }
 
-    private var binding: FragmentDataLoaderBinding? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDataLoaderBinding.inflate(inflater, container, false)
-        return binding!!.root
-    }
-
     override fun onStart() {
         super.onStart()
-        SpaceKit.setStatusListener(this)
-        SpaceKit.initialise(
-            LocalSpaceKitAssetData(
-                requireContext(),
-                "sampleData.zip"
-            )
-        )
+        checkRequisites()
     }
 
-    override fun onStop() {
-        super.onStop()
-        SpaceKit.setStatusListener(null)
+    private fun checkRequisites() {
+        val requisites = Requisites.requestUnfulfilledRequisites(requireContext())
+        if (requisites.isEmpty()) {
+            findNavController().navigate(R.id.actionContinueToSpaceKitViewer)
+        } else {
+            onRequisitesNeeded(requisites)
+        }
     }
 
-    override fun onSpaceKitReady() {
-        findNavController().navigate(R.id.actionContinueToSpaceKitViewer)
-    }
-
-    override fun onRequisitesNeeded(requisites: List<Requisite>) {
+    private fun onRequisitesNeeded(requisites: List<Requisite>) {
         Log.i(TAG, "Found unfulfilled requisites:$requisites")
         when (val nextRequisite = requisites.first()) {
             Requisite.CAMERA_PERMISSION -> requestCameraPermissions()
@@ -72,17 +54,11 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
         }
     }
 
-    override fun onError(exception: Exception) {
-        val error = "An error occurred during SpaceKit initialisation"
-        Log.w(TAG, error, exception)
-        activity?.let { Toast.makeText(it, error, Toast.LENGTH_LONG).show() }
-    }
-
     private val requestCameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            SpaceKit.checkRequisites()
+            checkRequisites()
         } else {
             requestCameraPermissions()//ask again
         }
@@ -94,7 +70,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
                 requireContext(),
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-                SpaceKit.checkRequisites()
+                checkRequisites()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                 AlertDialog.Builder(requireContext())
@@ -121,7 +97,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            SpaceKit.checkRequisites()
+            checkRequisites()
         } else {
             requestLocationPermissions()//ask again
         }
@@ -133,7 +109,7 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                SpaceKit.checkRequisites()
+                checkRequisites()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 AlertDialog.Builder(requireContext())
@@ -193,17 +169,12 @@ class DataLoaderFragment : Fragment(), SpaceKitStatusListener {
             .setCancelable(false)
             .setPositiveButton(R.string.requisites_denied_try) { _, _ ->
                 //ask again
-                SpaceKit.checkRequisites()
+                checkRequisites()
             }
             .setNegativeButton(R.string.requisites_denied_quit) { _, _ ->
                 //quit the app
                 requireActivity().finish()
             }
             .create().show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }

@@ -1,6 +1,7 @@
 package com.dentreality.spacekit.sample
 
 import androidx.lifecycle.MutableLiveData
+import javax.inject.Inject
 
 class SettableLiveData<T>(private val setAction: (T) -> T) : MutableLiveData<T>() {
     override fun postValue(value: T) {
@@ -13,7 +14,7 @@ data class ListPool(
     val pool: List<Product> = emptyList()
 )
 
-class ShoppingList(productDatabase: ProductDatabase) {
+class ShoppingList @Inject constructor(private val productDatabase: ProductDatabase) {
 
     val poolListLiveData: SettableLiveData<ListPool> = SettableLiveData { unordered ->
         ListPool(
