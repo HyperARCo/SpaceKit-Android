@@ -132,6 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     tools:text="Aisle 6"
                     tools:visibility="visible"
                     />

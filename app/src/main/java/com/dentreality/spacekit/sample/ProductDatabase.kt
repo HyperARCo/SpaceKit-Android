@@ -4,6 +4,7 @@ import android.content.Context
 import com.dentreality.spacekit.android.ext.AssetIcon
 import com.dentreality.spacekit.ext.Destination
 import com.dentreality.spacekit.ext.DestinationPriority
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -12,8 +13,9 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
+import javax.inject.Inject
 
-class ProductDatabase(private val context: Context) {
+class ProductDatabase @Inject constructor(@ApplicationContext private val context: Context) {
 
     val productList: List<Product> by lazy {
         val sampleFileName = "sampleProducts.json"

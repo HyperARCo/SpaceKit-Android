@@ -2,12 +2,14 @@ package com.dentreality.spacekit.sample
 
 import android.app.Application
 import com.dentreality.spacekit.android.ext.SpaceKit
+import dagger.hilt.android.HiltAndroidApp
 
-class SampleApp:Application() {
+@HiltAndroidApp
+class SampleApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        SpaceKit.init(this){
 
+        SpaceKit.init(this) {
             //enable press-to-locate
             isLocationOverrideEnabled = true
         }
