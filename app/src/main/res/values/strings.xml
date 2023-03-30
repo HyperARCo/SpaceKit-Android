@@ -28,10 +28,4 @@
     <string name="requisites_denied_body">One or more requirements has been denied. Try again or close.</string>
     <string name="requisites_denied_try">Try Again</string>
     <string name="requisites_denied_quit">Quit</string>
-
-    <string name="add_new">Add new</string>
-    <plurals name="list_of_products">
-        <item formatted="true" quantity="one">List %1$d product</item>
-        <item formatted="true" quantity="other">List %1$d products</item>
-    </plurals>
 </resources>
