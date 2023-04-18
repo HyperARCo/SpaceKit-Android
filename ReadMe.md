@@ -39,4 +39,4 @@ Both of these files should be placed in `app/src/main/assets`. You will then nee
 
 ### Reference
 
-For further information please refer to the [KDoc API reference](https://dentreality.github.io/SpaceKit-Android). If you have any questions or feedback, please [send us an email](mailto:elliot@dentreality.com).
+For further information please refer to the [KDoc API reference](https://hyperarco.github.io/SpaceKit-Android). If you have any questions or feedback, please [send us an email](mailto:elliot@dentreality.com).
