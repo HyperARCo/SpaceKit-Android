@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         mavenLocal()
         maven { url 'https://jitpack.io' }
         maven {
-            url = uri("https://maven.pkg.github.com/dentreality/spacekit-android")
+            url = uri("https://maven.pkg.github.com/HyperARCo/spacekit-android")
             credentials {
                 username = "$dentMavenUser"
                 password = "$dentMavenKey"
