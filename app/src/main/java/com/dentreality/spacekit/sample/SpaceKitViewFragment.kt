@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.dentreality.spacekit.SpaceKitUIFragment
 import com.dentreality.spacekit.ext.Destination
 import com.dentreality.spacekit.ext.ListListener
 import com.dentreality.spacekit.ext.SpaceKitContextFactory
 import com.dentreality.spacekit.ext.SpaceKitVenue
 import com.dentreality.spacekit.sample.common.CachedAssetFile
-import com.dentreality.spacekit.sample.databinding.FragmentSpaceKitViewBinding
-import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -37,28 +39,32 @@ class SpaceKitViewFragment : Fragment(R.layout.fragment_space_kit_view) {
         val cached = CachedAssetFile(requireContext(), "sampleData.zip")
         val spaceKitVenue = SpaceKitVenue(cached.getFile().absolutePath)
 
-        val spaceKitContext = SpaceKitContextFactory.create(spaceKitVenue)
+        lifecycleScope.launch {
+            val spaceKitContext = SpaceKitContextFactory.create(spaceKitVenue)
 
-        /*
-        Custom UI injection:
-            spaceKitUiFragment.changeLevelSwitcher(levelSwitcherConfig: LevelSwitcherConfig)
-            spaceKitUiFragment.changeRecenterButton(recenterButtonConfig: RecenterButtonConfig)
-            spaceKitUiFragment.changeInfoView(infoViewConfig: InfoViewConfig)
-         */
+            withContext(Dispatchers.Main) {
+                /*
+                Custom UI injection:
+                    spaceKitUiFragment.changeLevelSwitcher(levelSwitcherConfig: LevelSwitcherConfig)
+                    spaceKitUiFragment.changeRecenterButton(recenterButtonConfig: RecenterButtonConfig)
+                    spaceKitUiFragment.changeInfoView(infoViewConfig: InfoViewConfig)
+                 */
 
-        //load data
-        spaceKitUiFragment.initialise(spaceKitContext)
+                //load data
+                spaceKitUiFragment.initialise(spaceKitContext)
 
-        //add listener for ordered items
-        spaceKitContext.addListListener(object : ListListener<Destination> {
-            override fun onUpdateOrderedDestinations(destinations: List<Destination>) {
+                //add listener for ordered items
+                spaceKitContext.addListListener(object : ListListener<Destination> {
+                    override fun onUpdateOrderedDestinations(destinations: List<Destination>) {
 
+                    }
+                })
+
+                /*
+                Changing destinations:
+                    spaceKitContext.setDestinations(destinations: List<Destination>)
+                */
             }
-        })
-
-        /*
-        Changing destinations:
-            spaceKitContext.setDestinations(destinations: List<Destination>)
-        */
+        }
     }
 }
