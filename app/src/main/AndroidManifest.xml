@@ -40,10 +40,5 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyADhXMiySKLF16UNqH9hWXVXLE9V0IEkRo" />
 
-        <!-- AR core is currently required but will eventually be made optional -->
-        <meta-data
-            android:name="com.google.ar.core"
-            android:value="required" />
-
     </application>
 </manifest>
